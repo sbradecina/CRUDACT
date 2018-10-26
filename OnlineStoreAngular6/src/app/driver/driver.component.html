@@ -1,0 +1,77 @@
+<p-dataTable #dt [value]="driverList" [paginator]="true" [rows]="5" [pageLinks]="5" [responsive]="true" [totalRecords]="totalRecords"
+  (onLazyLoad)="paginate($event)" [lazy]="true">
+  <p-header>
+    <div class="addHeader">
+      <button type="button" pButton icon="fa fa-plus" (click)="addDriver()"></button>
+      &nbsp;Add Driver
+    </div>
+    <div class="searchHeader">
+      <input pInputText type="text" [(ngModel)]="searchDriverName" placeholder="Search Driver Name" />
+      <button pButton type="button" icon="fa fa-search" (click)="searchDriver()"></button>
+    </div>
+  </p-header>
+
+  <p-column>
+    <ng-template pTemplate type="body" let-Driver="rowData">
+      <button type="button" pButton icon="fa fa-pencil" (click)="editDriver(Driver)"></button>
+      <button type="button" pButton icon="fa fa-trash" (click)="deleteDriver(Driver)"></button>
+      &nbsp;
+    </ng-template>
+  </p-column>
+  <p-column field="driversID" header="DriverID"></p-column>
+  <p-column field="firstName" header="FirstName"></p-column>
+  <p-column field="middleName" header="MiddleName"></p-column>
+  <p-column field="lastName" header="LastName"></p-column>
+  <p-column field="gender" header="Gender"></p-column>
+  <p-column field="religion" header="Religion"></p-column>
+  <p-column field="licenseType" header="LicenseType"></p-column>
+  <p-column field="isActive" header="IsActive"></p-column>
+  <p-column field="address" header="Address"></p-column>
+  <p-column field="phoneNumber" header="PhoneNumber"></p-column>
+
+</p-dataTable>
+
+
+<form [formGroup]="driverForm">
+  <p-dialog width="750px" height="auto" header="Driver" [(visible)]="selectDriver" *ngIf="selectDriver">
+    <div class="ui-g-12 ui-md-12 ui-fluid">
+      <div class="ui-g-12 ui-md-5">
+        <label>Driver First Name</label>
+        <input pInputText id="input-firstName" formControlName="firstName" placeholder="Enter Driver's First Name" [(ngModel)]="selectDriver.firstName">
+        <br />
+        <label>Driver Middle Name</label>
+        <input pInputText id="input-mdname" placeholder="Enter Middle Name" formControlName="middleName" [(ngModel)]="selectDriver.middleName">
+        <label>Driver Last Name</label>
+        <input pInputText id="input-lstName" placeholder="Enter Last Name" formControlName="lastName" [(ngModel)]="selectDriver.lastName">
+        <label>Gender</label>
+        <br>
+        <p-radioButton value="True" label="Male" formControlName="gender" [(ngModel)]="selectDriver.gender" inputId="input-ged"></p-radioButton>
+        <br />
+        <p-radioButton value="False" label="Female" formControlName="gender" [(ngModel)]="selectDriver.gender" inputId="input-isActiveItem"></p-radioButton>
+        <br />
+        <label>Religion</label>
+        <input pInputText id="input-lcs" placeholder="Enter Religion" formControlName="religion" [(ngModel)]="selectDriver.religion">
+      </div>
+      <div class="ui-g-12 ui-md-5">
+      <label>License Type</label>
+      <input pInputText id="input-lcs" placeholder="Enter License Type" formControlName="licenseType" [(ngModel)]="selectDriver.licenseType">
+        <label>Is Active</label>
+        <br>
+        <p-radioButton value="True" label="True" formControlName="isActive" [(ngModel)]="selectDriver.isActive" inputId="input-ged"></p-radioButton>
+        <p-radioButton value="False" label="False" formControlName="isActive" [(ngModel)]="selectDriver.isActive" inputId="input-isActiveItem"></p-radioButton>
+        <br>
+        <br>
+        <label> Address </label>
+        <input pInputText id="input-address" placeholder="Enter Address" formControlName="address" [(ngModel)]="selectDriver.address">
+        <br>
+        <label>Phone Number</label>
+        <input pInputText id="input-phnnmbr" placeholder="Enter Phone Number" formControlName="phoneNumber" [(ngModel)]="selectDriver.phoneNumber">
+
+      </div>
+      <br>
+    <button pButton type="button" icon="fa fa-trash" label="Delete" (click)="okDelete() " *ngIf="isDeleteDriver == true"></button>
+    <button pButton type="button" icon="fa fa-file" label="Save" (click)="saveDriver()" *ngIf="isDeleteDriver == false" [disabled]="!driverForm.valid"></button>
+    <button pButton type="button" icon="fa fa-ban" label="Cancel" (click)="cancelDriver()"></button>
+    </div>
+  </p-dialog>
+</form>

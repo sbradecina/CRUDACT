@@ -1,0 +1,75 @@
+<p-dataTable #dt [value]="productList" [paginator]="true" [rows]="5" [pageLinks]="5" [responsive]="true" [totalRecords]="totalRecords"
+  (onLazyLoad)="paginate($event)" [lazy]="true">
+    <p-header>
+    <div class="addHeader">
+    <button type="button" pButton icon="fa fa-plus" (click)="addProduct()"></button>
+    &nbsp; Add Product
+    </div>
+    <div class="searchHeader">
+    <input pInputText type="text" [(ngModel)]="searchProductName" 
+    placeholder="Search Product"> 
+    <button pButton type="button" icon="fa fa-search" (click)="searchProduct()"></button>
+    </div>
+    </p-header>
+    <p-column>
+    <ng-template pTemplate type="body" let-Product="rowData">
+    <button type="button" pButton icon="fa fa-pencil" (click)="editProduct(Product)"></button>
+    <button type="button" pButton icon="fa fa-trash" (click)="deleteProduct(Product)"></button>
+    </ng-template>
+    </p-column>
+    <p-column field="productName" header="Product Name"></p-column>
+    <p-column field="supplierName" header="Supplier Name"></p-column>
+    <p-column field="categoryName" header="Category Name"></p-column>
+    <p-column field="unitPrice" header="Unit Price"></p-column>
+    <p-column field="unitStock" header="Unit in Stock"></p-column>
+    <p-column field="unitsOnOrder" header="Units on Order"></p-column>
+    <p-column field="reorderLevel" header="Reorder Level"></p-column>
+    <p-column field="discontinued" header="Discontiued"></p-column>
+    </p-dataTable>
+    
+    <form [formGroup] = "productForm">
+    <p-dialog header="Product" [(visible)]="selectProduct" *ngIf="selectProduct">
+    <div class="ui-g-12 ui-md-12 ui-fluid">
+    <label> Product Name </label>
+    <input pInputText id ="input-productName" formControlName="productName" 
+    placeholder="Enter Product Name" [(ngModel)] = "selectProduct.productName"> 
+    <br />
+    <label> Supplier </label>
+    <p-dropdown [options]="supplierList" [(ngModel)]="selectSupplier"
+    formControlName="supplier" optionLabel="companyName" placeholder="Select Supplier"
+    [style]="{'width': '100%'}">
+    </p-dropdown>
+    <br />
+    <label> Category </label>
+    <p-dropdown [options]="categoryList" [(ngModel)]="selectCategory"
+    formControlName="categoryName" optionLabel="categoryName" placeholder="Select Category"
+    [style]="{'width': '100%'}">
+    </p-dropdown>
+    <br />
+    <label> Unit Price </label>
+    <input pInputText id ="input-unitPrice" formControlName="unitPrice" 
+    placeholder="Enter Unit Price" [(ngModel)] = "selectProduct.unitPrice"> 
+    <br />
+    <label> Unit in Stock </label>
+    <input pInputText id ="input-unitStock" formControlName="unitStock" 
+    placeholder="Enter Units in Stock" [(ngModel)] = "selectProduct.unitStock"> 
+    <br />
+    <label> Units on Order </label>
+    <input pInputText id ="input-unitsOnOrder" formControlName="unitsOnOrder" 
+    placeholder="Enter Units On Order" [(ngModel)] = "selectProduct.unitsOnOrder"> 
+    <br />
+    <label> Reorder Level </label>
+    <input pInputText id ="input-reorderLevel" formControlName="reorderLevel" 
+    placeholder="Enter Reorder Level" [(ngModel)] = "selectProduct.reorderLevel"> 
+    <br />
+    
+    <label> Discontiued </label> <br>
+    <p-radioButton class="ui-g-12 ui-md-6 ui-fluid" formControlName="discontinued" label ="True" value="true" [(ngModel)]="selectProduct.discontinued"></p-radioButton>
+    <p-radioButton class="ui-g-12 ui-md-6 ui-fluid" formControlName="discontinued" label ="False" value="false" [(ngModel)]="selectProduct.discontinued"></p-radioButton>
+    
+    <button pButton type="button" icon="fa fa-trash" label="Delete" (click)="okDelete()" *ngIf="isDeleteProduct == true"></button>
+    <button pButton type="button" icon="fa fa-file" label="Save" (click)="saveProduct()" *ngIf="isDeleteProduct == false" [disabled]="!productForm.valid"></button>
+    <button pButton type="button" icon="fa fa-ban" label="Cancel" (click)="cancelProduct()"></button>
+    </div>
+    </p-dialog>
+    </form>

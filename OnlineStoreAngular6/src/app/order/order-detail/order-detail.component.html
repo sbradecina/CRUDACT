@@ -1,0 +1,40 @@
+<form [formGroup]="orderDetailFormGroup" >
+  <mat-form-field>
+    
+    
+    
+    <mat-select placeholder="Select ProductID" formControlName="productID" [(ngModel)]="productID">
+      <mat-option *ngFor="let product of productList" [value]="product.productID">
+        {{product.productName}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <input type="number" formControlName="orderDetailLineID"
+       [(ngModel)]="selectOrderDetail.orderDetailLineID" 
+       placeholder="Enter Order DetailLine ID" matInput>
+    </mat-form-field>
+
+    <br>
+  <mat-form-field>
+    <input type="number" formControlName="unitPrice"
+     [(ngModel)]="selectOrderDetail.unitPrice" 
+     placeholder="Enter UnitPrice" matInput>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="number" formControlName="quantity" 
+    [(ngModel)]="selectOrderDetail.quantity" 
+    placeholder="Enter Quantity" matInput>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input type="number" formControlName="discount" 
+    [(ngModel)]="selectOrderDetail.discount" 
+    placeholder="Enter Discount" matInput>
+  </mat-form-field>
+
+
+
+</form>

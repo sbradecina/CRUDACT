@@ -1,0 +1,41 @@
+<p-dataTable [value]="shipperList" [paginator]="true" [rows]="5" [pageLinks]="5" [responsive]="true">
+  <p-header>
+
+    <div class="addHeader">
+      <button type="button" pButton icon="fa fa-plus" (click)="addShipper()"></button>
+      &nbsp;Add Shipper
+    </div>
+      <div class="searchHeader">
+      <input pInputText type="text" [(ngModel)]="searchCompanyName" placeholder="Search Company Name" />
+      <button pButton type="button" icon="fa fa-search" (click)="searchShipper()"></button>
+    </div>
+  </p-header>
+  <p-column>
+    <ng-template pTemplate type="body" let-Shipper="rowData">
+      <button type="button" pButton icon="fa fa-pencil" (click)="editShipper(Shipper)"></button>
+      <button type="button" pButton icon="fa fa-trash" (click)="deleteShipper(Shipper)"></button>
+      &nbsp;
+    </ng-template>
+  </p-column>
+  <p-column field="companyName" header="CompanyName"></p-column>
+  <p-column field="phone" header="Phone"></p-column>
+</p-dataTable>
+
+
+<form [formGroup]="shipperForm">
+  <p-dialog header="Shipper" [(visible)]="selectShipper" *ngIf="selectShipper">
+    <div class="ui-g-12 ui-md-12 ui-fluid">
+      <label>Shipper Name</label>
+      <input pInputText id="input-compName" formControlName="companyName" placeholder="Enter Company Name" [(ngModel)]="selectShipper.companyName">
+      <br />
+      <label>Phone</label>
+      <input pInputText id="input-phone" placeholder="Enter Phone" formControlName="phone" [(ngModel)]="selectShipper.phone">
+
+      <br />
+      <button pButton type="button" icon="fa fa-trash" label="Delete" (click)="OkDelete() " *ngIf="isDeleteShipper == true"></button>
+      <button pButton type="button" icon="fa fa-file" label="Save" (click)="saveShipper()" *ngIf="isDeleteShipper == false" [disabled]="!shipperForm.valid"></button>
+      <button pButton type="button" icon="fa fa-ban" label="Cancel" (click)="cancelShipper()"></button>
+
+    </div>
+  </p-dialog>
+</form>

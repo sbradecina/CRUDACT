@@ -1,0 +1,183 @@
+<!--  <table mat-table [dataSource]="dataSource" width="100%"> -->
+
+
+<p-dataTable #dt [value]="personList" 
+[paginator]="true" [rows]="5" [pageLinks]="5" [responsive]="true" [totalRecords]="totalRecords"
+  (onLazyLoad)="paginate($event)" [lazy]="true">
+  <p-header>
+      <div class ="addHeader">
+      <button pButton type="button" icon="fa fa-plus" (click)="addPerson()"></button>
+      &nbsp;Add Person
+    </div>
+    <div class = "searchHeader">
+        <input pInputText type="text" [(ngModel)]= "searchPersonName"
+         placeholder="Search Person Name"/>
+         <button pButton type="button" icon="fa fa-search"
+         (click)="searchPerson()"></button>
+    </div>
+  </p-header>
+  <p-column>
+    <ng-template pTemplate type="body" let-Person="rowData">
+      <button pButton type="button" icon="fa fa-pencil" (click)="editPerson(Person)"></button>
+      <button pButton type="button" icon="fa fa-trash" (click)="deletePerson(Person)"></button>
+    </ng-template>
+  </p-column>
+  <p-column header="Person Name">
+      <ng-template pTemplate type="body" let-Person="rowData">
+          {{Person.firstName + " " + Person.middleName + " " + Person.lastName}}
+      </ng-template>
+  </p-column>
+ 
+  <!-- <p-column field="firstName" header="First Name"></p-column>
+ <p-column field="middleName" header="Middle Name"></p-column>
+  <p-column field="lastName" header="Last Name"></p-column> -->
+  <p-column field="age" header="Age"></p-column>
+  <p-column field="birthDate" header="Birthday"></p-column>
+  <p-column field="photo" header="Photo"></p-column>
+  <p-column field="gender" header="Gender"></p-column>
+  <p-column field="relationshipStatus" header="Relationship Status"></p-column>
+  <p-column field="nationality" header="Nationality"></p-column>
+  <p-column field="phoneNumber" header="Phone Number"></p-column>
+  <p-column field="religion" header="Religion"></p-column>
+  <p-column header="Person Address">
+      <ng-template pTemplate type="body" let-Person="rowData">
+          {{Person.street + " "  + Person.barangay + " " + Person.city + " "  + Person.country}}
+      </ng-template>
+  </p-column>
+      <p-column field="latitude" header="Latitude"></p-column>
+      <p-column field="longitude" header="Longitude"></p-column>
+</p-dataTable>
+<!-- </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper *ngIf="selectPerson">
+  <mat-step>
+    <form [formGroup]="personFormGroup">
+      <ng-template matStepLabel>Fill out your basic information</ng-template>
+      <mat-form-field>
+        <input type="text" formControlName="firstName" [(ngModel)]="selectPerson.firstName" placeholder="Enter First Name" matInput>
+        <mat-error>First Name is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" formControlName="middleName" [(ngModel)]="selectPerson.middleName" placeholder="Enter Middle Name" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" formControlName="lastName" [(ngModel)]="selectPerson.lastName" placeholder="Enter Last Name" matInput>
+        <mat-error>Last Name is <strong>required</strong></mat-error>
+        
+      </mat-form-field>
+      <mat-form-field>
+            <input type="text" formControlName="photo" [(ngModel)]="selectPerson.photo" placeholder="Photo" matInput>
+          </mat-form-field>
+
+     
+          <!-- <mat-form-field class="example-full-width">
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field> -->
+
+      <mat-form-field>
+          <input matInput disabled [matDatepicker]="birthDate" formControlName="birthDate" [(ngModel)]="selectPerson.birthDate"
+          placeholder="Birthday" (mouseleave)="computeAge()"  [min]="minDate" [max]="maxDate" readonly>
+          <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+          <mat-datepicker #birthDate disabled ="false"></mat-datepicker>
+          </mat-form-field>
+          
+          <mat-form-field>  
+        <input type="text" formControlName="age" [(ngModel)]="selectPerson.age" placeholder="Age" matInput disabled readonly>
+      </mat-form-field>
+          
+        <br>
+        <label>Gender</label>
+        <br>
+      <mat-radio-group formControlName="gender" [(ngModel)]="selectPerson.gender" required>
+        <mat-radio-button value="Male">Male</mat-radio-button>
+        <mat-radio-button value="Female">Female</mat-radio-button>
+      </mat-radio-group>
+      
+      
+
+      <mat-form-field>
+        <mat-select formControlName="relationshipStatus" [(ngModel)]="selectPerson.relationshipStatus" placeholder="Choose Relationship Status" required>
+          <mat-option value="Single">Single</mat-option>
+          <mat-option value="Married">Married</mat-option>
+          <mat-option value="Widow">Widow</mat-option>
+          <mat-option value="Separated">Separated</mat-option>
+          <mat-option value="Divorced">Divorced</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" formControlName="nationality" [(ngModel)]="selectPerson.nationality" placeholder="Enter Nationality" matInput>
+        <mat-error>Nationality is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input type="text" mask="(0000) 000 0000" formControlName="phoneNumber" [(ngModel)]="selectPerson.phoneNumber"
+          placeholder="Phone: +63 (912) XXX XXXX" matInput required>
+          <mat-error>Phone Number is <strong>required</strong></mat-error>
+          </mat-form-field>
+          <br>
+      <mat-form-field>
+        <input type="text" formControlName="religion" [(ngModel)]="selectPerson.religion" placeholder="Enter Religion" matInput>
+      </mat-form-field>
+
+      <div class="centerButtons">
+        <button mat-raised-button matStepperNext>Next</button>
+        <button mat-raised-button (click)="okDelete()">Delete</button>
+        <button mat-raised-button (click)="savePerson()">Save</button>
+        <button mat-raised-button (click)="cancelPerson()">Cancel</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step>
+    <form [formGroup]="personFormGroup">
+      <mat-form-field>
+        <input type="text" formControlName="street" [(ngModel)]="selectPerson.street" placeholder="Enter Street/House No./Building "
+          matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" formControlName="barangay" [(ngModel)]="selectPerson.barangay" placeholder="Enter Brgy./Subv." matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" formControlName="city" [(ngModel)]="selectPerson.city" placeholder="Enter City" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="text" formControlName="region" [(ngModel)]="selectPerson.region" placeholder="Enter Region" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input type="number" min="0" oninput="validity.valid || (value='');" formControlName="postalCode" [(ngModel)]="selectPerson.postalCode"
+          placeholder="Enter Postal Code" matInput required>
+          <mat-error>Postal Code is <strong>required</strong></mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input type="text" formControlName="country" [(ngModel)]="selectPerson.country" placeholder="Enter Country" matInput>
+        </mat-form-field>
+
+      <mat-form-field>
+        <input type="number" formControlName="latitude" [(ngModel)]="selectPerson.latitude" placeholder="Enter Latitude" matInput>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="number" formControlName="longitude" [(ngModel)]="selectPerson.longitude" placeholder="Enter Longitude" matInput>
+      </mat-form-field>
+
+      <div class="centerButtons">
+          <button mat-raised-button matStepperPrevious>Previous</button>
+          <button mat-raised-button (click)="savePerson()">Save</button>
+        </div>
+    </form>
+
+  </mat-step>
+</mat-horizontal-stepper>

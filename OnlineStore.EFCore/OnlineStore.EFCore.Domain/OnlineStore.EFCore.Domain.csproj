@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlneStore.EfCore.Domain.Models\OnlineStore.EFCore.Domain.Models.csproj" />
+  </ItemGroup>
+
+</Project>

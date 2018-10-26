@@ -1,0 +1,70 @@
+  
+  <p-dataTable #dt [value]= "positionList" [paginator]="true" [rows]="5" 
+  [pageLinks]="5" [responsive]= "true" [totalRecords]="totalRecords"
+  (onLazyLoad)="paginate($event)" [lazy]="true">
+
+  
+    <p-header>
+      <div class ="addHeader">
+      <button  type="button" pButton icon="fa fa-plus"  (click)="addPosition()"></button>
+      &nbsp;Add Position
+    </div>
+    <div class = "searchHeader">
+        <input pInputText type="text" [(ngModel)]= "searchPositionName"
+         placeholder="Search Position Name"/>
+         <button pButton type="button" icon="fa fa-search"
+         (click)="searchPosition()"></button>
+    </div>
+  </p-header>
+
+    <p-column>
+        <ng-template pTemplate type="body" let-Position="rowData">
+            <button  type="button" pButton icon="fa fa-pencil"  (click)="editPosition(Position)"></button>
+            <button  type="button" pButton icon="fa fa-trash"  (click)="deletePosition(Position)"></button>
+            &nbsp;
+        </ng-template>
+    </p-column>
+    <p-column field="positionID" header = "PositionID"></p-column>
+    <p-column field="positionName" header = "PositionName"></p-column>
+    <p-column field="price" header = "Price"></p-column>
+    <p-column field="isActive" header = "IsActive"></p-column>
+    <p-column field="dateCreated" header = "DateCreated"></p-column>
+  </p-dataTable>
+
+
+  <form [formGroup] = "positionForm">
+    <p-dialog header="Position" [(visible)]="selectPosition" *ngIf="selectPosition">
+      <div class="ui-g-12 ui-md-12 ui-fluid">
+          <label>Position Name</label>
+          <input pInputText id="input-cname" formControlName="positionName" placeholder="Enter Position Name" [(ngModel)]="selectPosition.positionName">
+          <br />
+          <br>
+          <!-- Price -->
+          <label>Price</label>
+          <input type="number" min="0" oninput="validity.valid || (value='');" formControlName="price" [(ngModel)]="selectPosition.price"
+          placeholder="Enter Price"  required>
+
+          <div align="center">
+              <label>Is Active</label>
+               <mat-radio-group class="isActive" [(ngModel)]="selectPosition.isActive" formControlName="isActive">
+                 <mat-radio-button class="isActive" [value]="true">True</mat-radio-button>
+                 <mat-radio-button class="isActive" [value]="false">False</mat-radio-button>
+               </mat-radio-group>
+             </div>
+
+          <mat-form-field>
+              <input matInput [matDatepicker]="dateCreated" placeholder="Enter Created date" [min]="minDate" [max]="maxDate" [(ngModel)]="selectPosition.dateCreated" formControlName="dateCreated">
+              <mat-datepicker-toggle matSuffix [for]="dateCreated" ></mat-datepicker-toggle>
+              <mat-datepicker #dateCreated></mat-datepicker>
+          </mat-form-field>
+
+
+    
+        <br />
+        <button pButton type="button" icon="fa fa-trash" label="Delete" (click)="okDelete() " *ngIf="isDeletePosition == true"></button>
+        <button pButton type="button" icon="fa fa-file" label="Save" (click)="savePosition()" *ngIf="isDeletePosition == false" [disabled]="!positionForm.valid"></button>
+        <button pButton type="button" icon="fa fa-ban" label="Cancel" (click)="cancelPosition()"></button>
+        
+      </div>
+  </p-dialog>
+  </form>

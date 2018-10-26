@@ -1,0 +1,76 @@
+<p-dataTable #dt [value]="warehouseList" [paginator]="true" [rows]="5" [pageLinks]="5" [responsive]="true" [totalRecords]="totalRecords"
+  (onLazyLoad)="paginate($event)" [lazy]="true">
+  <p-header>
+    <div class="addHeader">
+      <button type="button" pButton icon="fa fa-plus" (click)="addWarehouse()"></button>
+      &nbsp;Add Warehouse
+    </div>
+      <div class="searchHeader">
+        <input pInputText type="text" [(ngModel)]="searchWarehouseName" placeholder="Search Warehouse Name" />
+        <button pButton type="button" icon="fa fa-search" (click)="searchWarehouse()"></button>
+      
+    </div>
+  </p-header>
+
+  <p-column>
+    <ng-template pTemplate type="body" let-Warehouse="rowData">
+      <button type="button" pButton icon="fa fa-pencil" (click)="editWarehouse(Warehouse)"></button>
+      <button type="button" pButton icon="fa fa-trash" (click)="deleteWarehouse(Warehouse)"></button>
+      &nbsp;
+    </ng-template>
+  </p-column>
+  <p-column field="warehouseID" header="WarehouseID"></p-column>
+  <p-column field="warehouseName" header="WarehouseName"></p-column>
+  <p-column field="region" header="Region"></p-column>
+  <p-column field="country" header="Country"></p-column>
+  <p-column field="postalCode" header="PostalCode"></p-column>
+  <p-column field="city" header="City"></p-column>
+  <p-column field="street" header="Street"></p-column>
+  <p-column field="phoneNumber" header="PhoneNumber"></p-column>
+  <p-column field="itemNumber" header="Item Number"></p-column>
+  <p-column field="isActiveItem" header="Is Active"></p-column>
+
+</p-dataTable>
+
+
+<form [formGroup]="warehouseForm">
+  <p-dialog width="750px" height="auto" header="Warehouse" [(visible)]="selectWarehouse" *ngIf="selectWarehouse">
+    <div class="ui-g-12 ui-md-12 ui-fluid">
+      <div class="ui-g-12 ui-md-5">
+      <label>Warehouse Name</label>
+      <input pInputText id="input-warehouseName" formControlName="warehouseName" placeholder="Enter Warehouse Name" [(ngModel)]="selectWarehouse.warehouseName">
+      <br />
+      <label>Region</label>
+      <input pInputText id="input-region" placeholder="Enter Region" formControlName="region" [(ngModel)]="selectWarehouse.region">
+      <label>Country</label>
+      <input pInputText id="input-country" placeholder="Enter Country" formControlName="country" [(ngModel)]="selectWarehouse.country">
+      <label>PostalCode</label>
+      <input pInputText id="input-pstlcd" placeholder="Enter Postal Code" formControlName="postalCode" [(ngModel)]="selectWarehouse.postalCode">
+      <label>City</label>
+      <input pInputText id="input-city" placeholder="Enter City" formControlName="city" [(ngModel)]="selectWarehouse.city">
+    </div>
+      
+      <div class="ui-g-12 ui-md-5">
+      <label>Street</label>
+      <input pInputText id="input-street" placeholder="Enter Street" formControlName="street" [(ngModel)]="selectWarehouse.street">
+      <label>Phone Number</label>
+      <input pInputText id="input-phoneNumber" placeholder="Enter Phone number" formControlName="phoneNumber" [(ngModel)]="selectWarehouse.phoneNumber">
+      <label>Item Number</label>
+      <input pInputText id="input-itemNumber" placeholder="Enter Item number" formControlName="itemNumber" [(ngModel)]="selectWarehouse.itemNumber">
+      <br>
+      <label>Is Active</label>
+      <br>
+      <p-radioButton value="True" label="True" formControlName="isActiveItem" [(ngModel)]="selectWarehouse.isActiveItem" inputId="input-isActiveItem"></p-radioButton>
+      <br>
+      <p-radioButton value="False" label="False" formControlName="isActiveItem" [(ngModel)]="selectWarehouse.isActiveItem" inputId="input-isActiveItem"></p-radioButton>
+      </div>
+
+      <br />
+      <button pButton type="button" icon="fa fa-trash" label="Delete" (click)="okDelete() " *ngIf="isDeleteWarehouse == true"></button>
+      <button pButton type="button" icon="fa fa-file" label="Save" (click)="saveWarehouse()" *ngIf="isDeleteWarehouse == false"
+        [disabled]="!warehouseForm.valid"></button>
+      <button pButton type="button" icon="fa fa-ban" label="Cancel" (click)="cancelWarehouse()"></button>
+
+    </div>
+  </p-dialog>
+</form>

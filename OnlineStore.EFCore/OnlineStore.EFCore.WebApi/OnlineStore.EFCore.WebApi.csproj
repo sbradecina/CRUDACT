@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>6a982cf0-9630-4214-91bf-f55719efbb48</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineStore.EFCore.Domain\OnlineStore.EFCore.Domain.csproj" />
+    <ProjectReference Include="..\OnlineStore.EFCore.Infra\OnlineStore.EFCore.Infra.csproj" />
+    <ProjectReference Include="..\OnlneStore.EfCore.Domain.Models\OnlineStore.EFCore.Domain.Models.csproj" />
+  </ItemGroup>
+
+</Project>

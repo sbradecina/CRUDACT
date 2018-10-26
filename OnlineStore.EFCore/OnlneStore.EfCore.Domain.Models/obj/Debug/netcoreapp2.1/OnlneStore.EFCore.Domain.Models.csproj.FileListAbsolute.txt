@@ -1,0 +1,9 @@
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\bin\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.deps.json
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\bin\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.dll
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\bin\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.pdb
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\obj\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.csproj.CoreCompileInputs.cache
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\obj\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.AssemblyInfoInputs.cache
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\obj\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.AssemblyInfo.cs
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\obj\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.dll
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\obj\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.pdb
+C:\Training\Day3Database\OnlineStore.EFCore\OnlneStore.EfCore.Domain.Models\obj\Debug\netcoreapp2.1\OnlneStore.EFCore.Domain.Models.csprojAssemblyReference.cache
